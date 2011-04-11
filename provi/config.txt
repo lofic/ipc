@@ -1,0 +1,6 @@
+[provi]
+mqhost = localhost
+kstplfolder = /home/lofic/ipc/provi/kstemplates
+timeout = 30
+
+
