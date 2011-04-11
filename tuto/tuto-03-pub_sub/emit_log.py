@@ -3,7 +3,6 @@ host = 'localhost'
 
 import pika
 import sys
-import time
 
 connection = channel = None
 

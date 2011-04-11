@@ -12,8 +12,8 @@ def on_connected(connection):
 def on_channel_open(channel_):
     global channel
     channel = channel_
-    channel.exchange_declare(exchange = 'direct_logs', durable = True, type = 'direct',
-                             callback = on_exch_declared)
+    channel.exchange_declare(exchange = 'direct_logs', type = 'direct',
+                             callback = on_exch_declared, durable = True)
 
 def on_exch_declared(frame):
     channel.queue_declare(callback = on_queue_declared, exclusive = True)

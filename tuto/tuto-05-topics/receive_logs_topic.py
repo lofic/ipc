@@ -29,7 +29,7 @@ def on_queue_bind(frame):
     channel.basic_consume(handle_delivery, queue = queuename, no_ack = True)
 
 def handle_delivery(channel, method_frame, header_frame, body):
-    print "Received %r:%r" % (method_frame.routing_key,body,)
+    print "Received %r:%r" % (method_frame.routing_key, body,)
 
 
 if __name__ == '__main__':

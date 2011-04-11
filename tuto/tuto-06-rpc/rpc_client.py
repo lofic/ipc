@@ -38,7 +38,7 @@ def handle_delivery(channel, method_frame, header_frame, body):
 if __name__ == '__main__':
     try:
         seqnum = int(sys.argv[1])
-    except IndexError,ValueError:
+    except (IndexError, ValueError):
         print >> sys.stderr, "Usage: %s [Fibonacci_seq_num]..." % (sys.argv[0],)
         sys.exit(1)
     parameters = pika.ConnectionParameters(host)
