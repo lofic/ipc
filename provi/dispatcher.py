@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+
+    
 import ConfigParser as configparser
 import glob
 import simplejson as json
@@ -8,6 +10,12 @@ import pika
 import socket
 import sys
 
+try:
+    from bda import daemon
+except:
+    print 'Install bda.daemon'
+    print 'See http://www.kermit.fr/repo/rpm/el6/x86_64/'
+    sys.exit(1)
 
 class MqDispatch(object):
     def __init__(self, config):
@@ -15,8 +23,10 @@ class MqDispatch(object):
         self.channel = None
         self.kstplfolder = config.get('provi','kstplfolder')
         self.mqhost = config.get('provi','mqhost')
+        self.stdin = self.stdout = self.stderr = '/dev/null'
+        self.pidfile = '/tmp/dispatch.pid'
 
-    def connect(self):
+    def run(self):
         parameters = pika.ConnectionParameters(self.mqhost)
         try:
             self.connection = pika.adapters.SelectConnection(parameters,
@@ -78,4 +88,6 @@ if __name__ == '__main__':
     config.read(CONFIGFILE)
 
     mqd = MqDispatch(config)
-    mqd.connect()
+    
+    dispatchdaemon = daemon.Daemon(mqd)
+
