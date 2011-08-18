@@ -5,8 +5,8 @@
 # rabbitmqctl list_user_permissions -p '/' mcollective 
 # rabbitmqctl set_permissions -p '/' mcollective ".*" ".*" ".*"
 
-require 'rubygems'
-require 'json'
+#require 'rubygems'
+#require 'json'
 require 'mcollective'
 require 'pp'
 

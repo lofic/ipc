@@ -1,7 +1,7 @@
 #!/usr/bin/ruby
 
 require 'mcollective'
-require 'json'
+#require 'json'
 
 def publish(msg, security, connector, config)
    target = "/queue/message.example"
