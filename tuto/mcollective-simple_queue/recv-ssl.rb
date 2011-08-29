@@ -17,6 +17,10 @@ config = MCollective::Config.instance
 #configfile = "/etc/mcollective/server.cfg"
 #config.loadconfig(configfile)
 config.loadconfig(options[:config])
+# Override the mcollective keys to use a new pair specific to the queue
+config.pluginconf['ssl_client_private']='/etc/mcollective/ssl/clients/q-private.pem'
+config.pluginconf['ssl_client_public']='/etc/mcollective/ssl/clients/q-public.pem'
+config.pluginconf['ssl_client_cert_dir']='/etc/mcollective/ssl/clients/'
 
 security = MCollective::PluginManager["security_plugin"]
 security.initiated_by = :node
@@ -30,4 +34,5 @@ loop do
     msg = security.decodemsg(msg)
     pp msg
 end
+
 

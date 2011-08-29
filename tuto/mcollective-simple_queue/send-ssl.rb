@@ -21,6 +21,9 @@ options = oparser.parse
 
 config = MCollective::Config.instance
 config.loadconfig(options[:config])
+# Override the mcollective keys to use a new pair specific to the queue
+config.pluginconf['ssl_client_private']='/etc/mcollective/ssl/clients/q-private.pem'
+config.pluginconf['ssl_client_public']='/etc/mcollective/ssl/clients/q-public.pem'
 
 security = MCollective::PluginManager["security_plugin"]
 security.initiated_by = :client
@@ -28,5 +31,7 @@ security.initiated_by = :client
 connector = MCollective::PluginManager["connector_plugin"]
 connector.connect
 
+
 data = "Louis was here"
 publish(data, security, connector, config)
+
