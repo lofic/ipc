@@ -14,13 +14,11 @@ oparser = MCollective::Optionparser.new
 options = oparser.parse
 
 config = MCollective::Config.instance
-#configfile = "/etc/mcollective/server.cfg"
-#config.loadconfig(configfile)
 config.loadconfig(options[:config])
-# Override the mcollective keys to use a new pair specific to the queue
-config.pluginconf['ssl_client_private']='/etc/mcollective/ssl/clients/q-private.pem'
-config.pluginconf['ssl_client_public']='/etc/mcollective/ssl/clients/q-public.pem'
+# We need this to be able to pick the key to decode what's sent : 
 config.pluginconf['ssl_client_cert_dir']='/etc/mcollective/ssl/clients/'
+# !!!DON'T!!! put the private key used to encode the sent message on this node.
+# Only the public key, to decode the message.
 
 security = MCollective::PluginManager["security_plugin"]
 security.initiated_by = :node
