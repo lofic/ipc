@@ -5,7 +5,7 @@ require 'mcollective'
 def publish(msg, security, connector, config)
    target = "/queue/message.example"
    reqid = Digest::MD5.hexdigest("#{config.identity}-#{Time.now.to_f.to_s}-#{target}")
-   req = security.encoderequest(config.identity, target, msg, reqid, {}, "custominventory", "mcollective")
+   req = security.encoderequest(config.identity, target, msg, reqid, {}, "customqueue", "mcollective")
 
    Timeout.timeout(2) do
       # Newer stomp rubygem :

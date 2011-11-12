@@ -15,7 +15,7 @@ MAINCONF = '/etc/kermit/kermit.cfg'
 ini=IniFile.load(MAINCONF, :comment => '#')
 params = ini[SECTION]
 amqpcfg = params['amqpcfg']
-source = params['queuename']
+source = params['logqueuename']
 
 oparser = MCollective::Optionparser.new
 options = oparser.parse

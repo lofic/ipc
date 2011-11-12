@@ -6,7 +6,7 @@ require 'inifile'
 def publish(msg, security, connector, config, queuename)
    target = queuename 
    reqid = Digest::MD5.hexdigest("#{config.identity}-#{Time.now.to_f.to_s}-#{target}")
-   req = security.encoderequest(config.identity, target, msg, reqid, {}, "custominventory", "mcollective")
+   req = security.encoderequest(config.identity, target, msg, reqid, {}, "customqueue", "mcollective")
 
    Timeout.timeout(2) do
       begin
@@ -25,7 +25,7 @@ MAINCONF = '/etc/kermit/kermit.cfg'
 ini=IniFile.load(MAINCONF, :comment => '#')
 params = ini[SECTION]
 amqpcfg = params['amqpcfg']
-queuename = params['queuename'] 
+queuename = params['logqueuename'] 
 
 # default mcollective client options like --config etc will be valid
 oparser = MCollective::Optionparser.new
