@@ -6,7 +6,11 @@ require 'inifile'
 def publish(msg, security, connector, config, queuename)
    target = queuename 
    reqid = Digest::MD5.hexdigest("#{config.identity}-#{Time.now.to_f.to_s}-#{target}")
-   req = security.encoderequest(config.identity, target, msg, reqid, {}, "customqueue", "mcollective")
+   if MCollective.version.split('.').first.to_i > 1
+     req = security.encoderequest(config.identity, msg, reqid, "", "customqueue", "mcollective")
+   else
+     req = security.encoderequest(config.identity, target, msg, reqid, {}, "customqueue", "mcollective")
+   end
 
    Timeout.timeout(2) do
       begin
