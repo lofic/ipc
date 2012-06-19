@@ -12,10 +12,13 @@ def publish(msg, security, connector, config)
    end
 
    Timeout.timeout(2) do
-      # Newer stomp rubygem :
-      # connector.connection.publish(target, req)
-      # Older stomp rubygem :
-      connector.connection.send(target, req)
+      begin
+        # Newer stomp rubygem :
+        connector.connection.publish(target, req)
+      rescue
+        # Older stomp rubygem :
+        connector.connection.send(target, req)
+      end
    end
 end
 
